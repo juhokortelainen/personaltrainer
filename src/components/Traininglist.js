@@ -9,16 +9,19 @@ function Traininglist() {
     const [trainings, setTrainings] = useState([]);
 
     useEffect(() => {
-        fetch("https://customerrest.herokuapp.com/api/trainings")
+        fetch("https://customerrest.herokuapp.com/gettrainings")
         .then(response => response.json())
-        .then(data => setTrainings(data.content))
+        .then(data => setTrainings(data))
         .catch(err => console.error(err))
     }, [])
+
+    const fetchCustomerName = () => {
+
+    }
 
     const columns = [
         {
             headerName: "Date and time",
-            field: "date",
             valueGetter: params => { return dayjs(params.data.date).format("DD/MM/YYYY HH:mm"); },
             sortable:true,
             filter: true
@@ -32,6 +35,12 @@ function Traininglist() {
         {
             field: "activity",
             sortable:true,
+            filter: true
+        },
+        {
+            headerName: "Customer",
+            valueGetter: params => { return params.data.customer.firstname + " " + params.data.customer.lastname },
+            sortable: true,
             filter: true
         }
     ];
