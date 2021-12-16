@@ -5,14 +5,17 @@ import Snackbar from '@mui/material/Snackbar';
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import AddTraining from "./AddTraining";
+import ExportCsv from "./ExportCsv";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-material.css";
+import { ButtonGroup } from "@mui/material";
 
 function Customerlist() {
   const [customers, setCustomers] = useState([]);
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState("");
+  const [gridApi, setGridApi] = useState(null);
 
   useEffect(() => {
     fetchCustomers();
@@ -94,6 +97,25 @@ function Customerlist() {
     }
   };
 
+  const onGridReady = params => {
+    setGridApi(params.api)
+  }
+
+  const exportCsv = () => {
+    const toExport = {
+      columnKeys: [
+        "firstname",
+        "lastname",
+        "streetaddress",
+        "postcode",
+        "city",
+        "email",
+        "phone"
+      ]
+    };
+    gridApi.exportDataAsCsv(toExport);
+  }
+
   const columns = [
     {
       field: "firstname",
@@ -167,7 +189,10 @@ function Customerlist() {
 
   return (
     <React.Fragment>
-      <AddCustomer addCustomer={addCustomer} />
+      <ButtonGroup>
+        <AddCustomer addCustomer={addCustomer} />
+        <ExportCsv exportCsv={exportCsv} />
+      </ButtonGroup>
       <div
         className="ag-theme-material"
         style={{ height: 600, margin: "auto" }}
@@ -178,6 +203,7 @@ function Customerlist() {
           pagination={true}
           paginationPageSize={10}
           suppressCellSelection={true}
+          onGridReady={onGridReady}
         />
       </div>
       <Snackbar
