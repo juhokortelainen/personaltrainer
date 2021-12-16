@@ -7,7 +7,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
 function EditCustomer(props) {
-
   const emptyCustomerValues = {
     firstname: "",
     lastname: "",
@@ -15,22 +14,22 @@ function EditCustomer(props) {
     postcode: "",
     city: "",
     email: "",
-    phone: ""
-  }
+    phone: "",
+  };
 
   const [open, setOpen] = useState(false);
   const [customer, setCustomer] = useState(emptyCustomerValues);
 
   const handleClickOpen = () => {
     setCustomer({
-        firstname: props.customer.data.firstname,
-        lastname: props.customer.data.lastname,
-        streetaddress: props.customer.data.streetaddress,
-        postcode: props.customer.data.postcode,
-        city: props.customer.data.city,
-        email: props.customer.data.email,
-        phone: props.customer.data.phone
-    })
+      firstname: props.customer.data.firstname,
+      lastname: props.customer.data.lastname,
+      streetaddress: props.customer.data.streetaddress,
+      postcode: props.customer.data.postcode,
+      city: props.customer.data.city,
+      email: props.customer.data.email,
+      phone: props.customer.data.phone,
+    });
     setOpen(true);
   };
 
@@ -39,12 +38,12 @@ function EditCustomer(props) {
   };
 
   const handleSave = () => {
-      props.updateCustomer(props.customer.value, customer);
-      handleClose();
-  }
+    props.updateCustomer(props.customer.value, customer);
+    handleClose();
+  };
 
   const inputChanged = (event) => {
-      setCustomer({...customer, [event.target.name]: event.target.value});
+    setCustomer({ ...customer, [event.target.name]: event.target.value });
   };
 
   return (

@@ -11,14 +11,13 @@ import TabPanel from "@mui/lab/TabPanel";
 import Customerlist from "./components/Customerlist";
 import Traininglist from "./components/Traininglist";
 import Calendar from "./components/Calendar";
+import Statistics from "./components/Statistics";
 
 function App() {
   const [value, setValue] = useState("customers");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -34,6 +33,7 @@ function App() {
             <Tab label="Customers" value="customers" />
             <Tab label="Trainings" value="trainings" />
             <Tab label="Calendar" value="calendar" />
+            <Tab label="Statistics" value="statistics" />
           </TabList>
         </Box>
         <TabPanel value="customers">
@@ -45,9 +45,11 @@ function App() {
         <TabPanel value="calendar">
           <Calendar />
         </TabPanel>
+        <TabPanel value="statistics">
+          <Statistics />
+        </TabPanel>
       </TabContext>
     </Box>
   );
 }
-
 export default App;

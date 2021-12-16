@@ -3,14 +3,11 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import dayjs from "dayjs";
-
 function Calendar() {
   const [trainings, setTrainings] = useState([]);
-
   useEffect(() => {
     fetchTrainings();
   }, []);
-
   const fetchTrainings = () => {
     fetch("https://customerrest.herokuapp.com/gettrainings")
       .then((response) => response.json())
@@ -18,7 +15,12 @@ function Calendar() {
         setTrainings(
           data.map((training) => {
             return {
-              title: training.activity,
+              title:
+                training.activity +
+                " / " +
+                training.customer.firstname +
+                " " +
+                training.customer.lastname,
               start: training.date,
               end: dayjs(training.date)
                 .add(training.duration, "minute")
@@ -29,7 +31,6 @@ function Calendar() {
       )
       .catch((err) => console.error(err));
   };
-
   return (
     <div>
       <FullCalendar
@@ -60,5 +61,4 @@ function Calendar() {
     </div>
   );
 }
-
 export default Calendar;

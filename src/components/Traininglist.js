@@ -21,9 +21,12 @@ function Traininglist() {
       .catch((err) => console.error(err));
   };
 
-   const deleteTraining = (params) => {
+  const deleteTraining = (params) => {
     if (window.confirm("Are you sure?")) {
-      fetch("https://customerrest.herokuapp.com/api/trainings/" + params.data.id, { method: "DELETE" })
+      fetch(
+        "https://customerrest.herokuapp.com/api/trainings/" + params.data.id,
+        { method: "DELETE" }
+      )
         .then((response) => {
           if (response.ok) {
             fetchTrainings();
@@ -35,7 +38,7 @@ function Traininglist() {
         })
         .catch((err) => console.error(err));
     }
-  }
+  };
 
   const columns = [
     {

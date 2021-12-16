@@ -5,17 +5,16 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import AdapterDayjs from '@mui/lab/AdapterDayjs';
+import AdapterDayjs from "@mui/lab/AdapterDayjs";
 import dayjs from "dayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 
 function AddTraining(props) {
-
   const emptyTraingingState = {
     date: "",
     duration: "",
     activity: "",
-    customer: ""
+    customer: "",
   };
 
   const [open, setOpen] = useState(false);
@@ -25,11 +24,11 @@ function AddTraining(props) {
   const handleClickOpen = () => {
     setOpen(true);
     setTraining({
-        date: selectedDate,
-        duration: "",
-        activity: "",
-        customer: props.customer.data.links[0].href
-    })
+      date: selectedDate,
+      duration: "",
+      activity: "",
+      customer: props.customer.data.links[0].href,
+    });
   };
 
   const handleClose = () => {
@@ -38,19 +37,19 @@ function AddTraining(props) {
   };
 
   const handleSave = () => {
-      props.addTraining(training);
-      handleClose();
-      setTraining(emptyTraingingState);
-  }
+    props.addTraining(training);
+    handleClose();
+    setTraining(emptyTraingingState);
+  };
 
   const inputChanged = (event) => {
-      setTraining({...training, [event.target.name]: event.target.value});
+    setTraining({ ...training, [event.target.name]: event.target.value });
   };
 
   const dateChanged = (date) => {
-      setSelectedDate(date);
-      setTraining({...training, date});
-  }
+    setSelectedDate(date);
+    setTraining({ ...training, date });
+  };
 
   return (
     <div>
@@ -58,20 +57,26 @@ function AddTraining(props) {
         Add training
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>New training for {props.customer.data.firstname + " " + props.customer.data.lastname}</DialogTitle>
+        <DialogTitle>
+          New training for{" "}
+          {props.customer.data.firstname + " " + props.customer.data.lastname}
+        </DialogTitle>
         <DialogContent>
-        <LocalizationProvider dateAdapter={AdapterDayjs} locale={dayjs.locale("en-gb")}>
-          <DateTimePicker
-            name="date"
-            value={training.date}
-            onChange={date => dateChanged(date)}
-            margin="dense"
-            label="Date and time"
-            fullWidth
-            variant="standard"
-            renderInput={(props) => <TextField {...props} />}
-          />
-        </LocalizationProvider>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            locale={dayjs.locale("en-gb")}
+          >
+            <DateTimePicker
+              name="date"
+              value={training.date}
+              onChange={(date) => dateChanged(date)}
+              margin="dense"
+              label="Date and time"
+              fullWidth
+              variant="standard"
+              renderInput={(props) => <TextField {...props} />}
+            />
+          </LocalizationProvider>
           <TextField
             name="duration"
             value={training.duration}

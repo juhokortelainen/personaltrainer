@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import Button from "@mui/material/Button";
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar from "@mui/material/Snackbar";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import AddTraining from "./AddTraining";
@@ -34,51 +34,48 @@ function Customerlist() {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(customer),
     })
-    .then(response => {
+      .then((response) => {
         if (response.ok) {
-            fetchCustomers();
+          fetchCustomers();
+        } else {
+          alert("Something went wrong with adding a new customer");
         }
-        else {
-            alert("Something went wrong with adding a new customer")
-        }
-    })
-    .catch(err => console.error(err))
+      })
+      .catch((err) => console.error(err));
   };
 
   const updateCustomer = (url, updatedCustomer) => {
     fetch(url, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify(updatedCustomer)
+      body: JSON.stringify(updatedCustomer),
     })
-    .then(response => {
-      if (response.ok) {
-        fetchCustomers();
-        setMsg("Customer updated successfully");
-        setOpen(true);
-      }
-      else {
-        alert("Something went wrong with updating the customer")
-      }
-    })
-    .catch(err => console.error(err))
-  }
+      .then((response) => {
+        if (response.ok) {
+          fetchCustomers();
+          setMsg("Customer updated successfully");
+          setOpen(true);
+        } else {
+          alert("Something went wrong with updating the customer");
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   const addTraining = (training) => {
     fetch("https://customerrest.herokuapp.com/api/trainings", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify(training)
+      body: JSON.stringify(training),
     })
-    .then(response => {
+      .then((response) => {
         if (response.ok) {
-            fetchCustomers();
+          fetchCustomers();
+        } else {
+          alert("Something went wrong with adding the training");
         }
-        else {
-            alert("Something went wrong with adding the training")
-        }
-    })
-    .catch(err => console.error(err))
+      })
+      .catch((err) => console.error(err));
   };
 
   const deleteCustomer = (url) => {
@@ -97,9 +94,9 @@ function Customerlist() {
     }
   };
 
-  const onGridReady = params => {
-    setGridApi(params.api)
-  }
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+  };
 
   const exportCsv = () => {
     const toExport = {
@@ -110,11 +107,11 @@ function Customerlist() {
         "postcode",
         "city",
         "email",
-        "phone"
-      ]
+        "phone",
+      ],
     };
     gridApi.exportDataAsCsv(toExport);
-  }
+  };
 
   const columns = [
     {
@@ -133,7 +130,7 @@ function Customerlist() {
       field: "streetaddress",
       sortable: true,
       filter: true,
-      width: 170
+      width: 170,
     },
     {
       field: "postcode",
@@ -151,25 +148,29 @@ function Customerlist() {
       field: "email",
       sortable: true,
       filter: true,
-      width: 180
+      width: 180,
     },
     {
       field: "phone",
       sortable: true,
       filter: true,
-      width: 140
+      width: 140,
     },
     {
       headerName: "",
       field: "links.0.href",
       width: 180,
-      cellRendererFramework: params => <AddTraining addTraining={addTraining} customer={params} />
+      cellRendererFramework: (params) => (
+        <AddTraining addTraining={addTraining} customer={params} />
+      ),
     },
     {
       headerName: "",
       field: "links.0.href",
       width: 120,
-      cellRendererFramework: params => <EditCustomer updateCustomer={updateCustomer} customer={params}/>
+      cellRendererFramework: (params) => (
+        <EditCustomer updateCustomer={updateCustomer} customer={params} />
+      ),
     },
     {
       headerName: "",

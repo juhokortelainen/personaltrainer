@@ -9,14 +9,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 function AddCustomer(props) {
   const [open, setOpen] = useState(false);
   const [customer, setCustomer] = useState({
-      firstname: "",
-      lastname: "",
-      streetaddress: "",
-      postcode: "",
-      city: "",
-      email: "",
-      phone: ""
-  })
+    firstname: "",
+    lastname: "",
+    streetaddress: "",
+    postcode: "",
+    city: "",
+    email: "",
+    phone: "",
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,12 +27,12 @@ function AddCustomer(props) {
   };
 
   const handleSave = () => {
-      props.addCustomer(customer);
-      handleClose();
-  }
+    props.addCustomer(customer);
+    handleClose();
+  };
 
   const inputChanged = (event) => {
-      setCustomer({...customer, [event.target.name]: event.target.value});
+    setCustomer({ ...customer, [event.target.name]: event.target.value });
   };
 
   return (
